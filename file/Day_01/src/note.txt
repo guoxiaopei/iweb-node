@@ -1,0 +1,27 @@
+﻿iweb项目
+==========================
+
+iweb旧项目
+前端: jQuery+Ajax
+后端: PHP+MySQL
+iweb新项目
+前端: Vue+axios+Bootstrap
+后端: NodeJS+MySQL
+
+上线: 新浪云
+---------------------------
+项目阶段的纪律
+1. 知识点不会太细
+2. 授课是平均速度
+3. 尽量找一个学伴
+4. 每天的任务做汇总
+   总结用到的知识点
+   突破自己的知识盲点
+
+软件: XAMPP(PHP+MySQL(MariaDB+phpMyAdmin))
+编辑器: VSCode
+接口测试软件: 
+1. Postman
+2. APIPost(下载安装+注册账号)上课用
+3. Postwoman
+
