@@ -16,3 +16,7 @@ const teacherRouter = require("./route/teacher");
 app.use("/teacher", teacherRouter);
 const userRouter = require("./route/user");
 app.use("/user", userRouter);
+const typeRouter = require("./route/type");
+app.use("/type", typeRouter);
+const courseRouter = require("./route/course");
+app.use("/course", courseRouter);
