@@ -49,9 +49,9 @@ router.post("/login", (req, res) => {
     res.json({code: 402, msg: "upwd required"})
   }
   //sql查询语句
-  let sql = "SELECT * FROM user WHERE uname=? AND upwd=? LIMIT 1";
+  let sql = "SELECT * FROM user WHERE (uname=? AND upwd=?) OR (phone=? AND upwd=?) LIMIT 1";
   //数据库查询
-  pool.query(sql, [obj.uname, obj.upwd], (err, result) => {
+  pool.query(sql, [obj.uname, obj.upwd, obj.uname, obj.upwd], (err, result) => {
     if(err) throw err;
     //查询结果长度大于0，表示查到相应结果
     if(result.length > 0) {

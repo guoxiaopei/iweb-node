@@ -61,5 +61,22 @@ router.get("/detail", (req, res) => {
     })
   })
 })
+//获取最新课程
+router.get("/newest", (req, res) => {
+  let countNum = req.query.countNum;
+  if(!countNum) {
+    countNum = 4;
+  }
+  let sql = "SELECT cid,pic,price,title,tname FROM course,teacher WHERE course.teacherId = teacher.tid ORDER BY cid DESC LIMIT ?";
+  pool.query(sql, [parseInt(countNum)], (err, result) => {
+    if(err) throw err;
+    console.log(result);
+    res.json({
+      code: 200,
+      msg: "success",
+      data: result
+    })
+  })
+})
 //导出路由对象
 module.exports = router;

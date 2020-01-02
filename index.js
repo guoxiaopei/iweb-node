@@ -20,3 +20,7 @@ const typeRouter = require("./route/type");
 app.use("/type", typeRouter);
 const courseRouter = require("./route/course");
 app.use("/course", courseRouter);
+const cartRouter = require("./route/cart");
+app.use("/cart", cartRouter);
+const favoriteRouter = require("./route/favorite");
+app.use("/favorite", favoriteRouter);
