@@ -8,11 +8,36 @@ const router = express.Router();
 router.post("/register", (req, res) => {
   // console.log(req.body);
   let obj = req.body;
+  if(!obj.uname) {
+    res.json({code: 400, msg: "用户名不能为空"})
+    return;
+  }
+  if(!obj.phone) {
+    res.json({code: 401, msg: "手机号不能为空"})
+    return;
+  }
   var pt = /^1[3-9]\d{9}$/;
   if (!pt.test(obj.phone)) {
-    res.json({code: 405, msg: "手机号格式非法"})
+    res.json({code: 404, msg: "手机号格式非法"})
+    return;
   }
-  let sql = "INSERT INTO user VALUES SET ?";
+  if(!obj.upwd) {
+    res.json({code: 402, msg: "密码不能为空"})
+    return;
+  }
+  if(!obj.upwd2) {
+    res.json({code: 403, msg: "重复密码不能为空"})
+    return;
+  }
+  if(obj.upwd !== obj.upwd2) {
+    res.json({code: 405, msg: "两次密码不一致"})
+    return;
+  }
+  
+  
+  delete obj.upwd2;
+
+  let sql = "INSERT INTO user SET ?";
   //let sql = "INSERT INTO user(uid,uname,phone,upwd) VALUES (NULL, ?, ?, ?)";
   pool.query(sql, [obj], (err, result) => {
     if(err) throw err;
@@ -23,7 +48,7 @@ router.post("/register", (req, res) => {
         msg: "success",
         data: {
           uid: result.insertId,
-          uname: uname
+          uname: obj.uname
         }
       });
     } else {
