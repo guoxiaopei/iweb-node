@@ -7,23 +7,33 @@ router.post("/add", (req, res) => {
   console.log(obj);
   if(!obj.uid) {
     res.json({code: 401, msg: "uid is required"});
+    return;
   }
   if(!obj.cid) {
     res.json({code: 402, msg: "cid is required"});
+    return;
   }
   if(!obj.time) {
     obj.time = Math.ceil(new Date().getTime()/1000);
     console.log(obj.time)
   }
 
-  let sql = "INSERT INTO favorite VALUES(NULL, ?, ?, ?)";
-  pool.query(sql, [obj.uid, obj.cid, obj.time], (err, result) => {
+  let sql = "SELECT fid FROM favorite WHERE userId=? AND courseId=?";
+  pool.query(sql, [obj.uid, obj.cid], (err, result) => {
     if(err) throw err;
-    console.log(result);
-    if(result.affectedRows > 0) {
-      res.json({code: 200, msg: "success", data: {fid: result.insertId}})
+    if(result.length > 0) {
+      res.json({code: 201, msg: "课程已收藏"})
     } else {
-      res.json({code: 301, msg: "failed"})
+      let sql = "INSERT INTO favorite VALUES(NULL, ?, ?, ?)";
+      pool.query(sql, [obj.uid, obj.cid, obj.time], (err, result) => {
+        if(err) throw err;
+        console.log(result);
+        if(result.affectedRows > 0) {
+          res.json({code: 200, msg: "success", data: {fid: result.insertId}})
+        } else {
+          res.json({code: 301, msg: "failed"})
+        }
+      })
     }
   })
 })
