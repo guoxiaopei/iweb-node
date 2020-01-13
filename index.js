@@ -35,3 +35,5 @@ const cartRouter = require("./route/cart");
 app.use("/cart", cartRouter);
 const favoriteRouter = require("./route/favorite");
 app.use("/favorite", favoriteRouter);
+const orderRouter = require("./route/order");
+app.use("/order", orderRouter);
